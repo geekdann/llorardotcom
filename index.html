@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>llorar.com 😭 — El refugio oficial de los stompeados</title>
+  <meta name="description" content="Si llegaste aquí… te stompearon. Bienvenido a llorar.com, el sitio más honesto del internet gamer.">
+  <meta property="og:title" content="llorar.com 😭 — Te stompearon, ¿verdad?">
+  <meta property="og:description" content="El único sitio donde puedes llorar en paz después de que te hicieron polvo en PvP.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #060610;
+      --surface: rgba(255, 255, 255, 0.03);
+      --surface-hover: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --cyan: #00f5ff;
+      --cyan-dim: rgba(0, 245, 255, 0.15);
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --pink: #f72585;
+      --pink-dim: rgba(247, 37, 133, 0.15);
+      --green: #00ff88;
+      --yellow: #ffd60a;
+      --text: #f0f0ff;
+      --text-muted: #6b7280;
+      --text-dim: #4b5563;
+      --glow-cyan: 0 0 24px rgba(0, 245, 255, 0.35);
+      --glow-purple: 0 0 24px rgba(124, 58, 237, 0.45);
+      --glow-pink: 0 0 24px rgba(247, 37, 133, 0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background layers ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 55% at 50% -10%, rgba(124,58,237,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 85% 85%,  rgba(0,245,255,0.09) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 15% 70%,  rgba(247,37,133,0.07) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ── Audio toggle ── */
+    .audio-btn {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 100;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .audio-btn:hover {
+      border-color: rgba(0,245,255,0.5);
+      color: var(--cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 2.5rem 0 1rem;
+    }
+
+    .skull-icon {
+      font-size: 3.5rem;
+      display: inline-block;
+      animation: float 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(247,37,133,0.4));
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(-6deg); }
+      50%      { transform: translateY(-12px) rotate(6deg); }
+    }
+
+    .site-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(4.5rem, 16vw, 9rem);
+      letter-spacing: 3px;
+      line-height: 0.88;
+      margin: 0.4rem 0 0;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(140deg, var(--cyan) 0%, var(--purple-light) 45%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(124,58,237,0.45));
+      cursor: default;
+      user-select: none;
+    }
+
+    .site-title::before,
+    .site-title::after {
+      content: 'llorar.com';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, var(--cyan) 0%, var(--purple-light) 45%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .site-title::before {
+      animation: glitch-a 5s infinite;
+      clip-path: polygon(0 18%, 100% 18%, 100% 38%, 0 38%);
+    }
+    .site-title::after {
+      animation: glitch-b 5s infinite;
+      clip-path: polygon(0 62%, 100% 62%, 100% 82%, 0 82%);
+    }
+    @keyframes glitch-a {
+      0%,88%,100% { transform:translate(0); opacity:0; }
+      91% { transform:translate(-4px,1px); opacity:0.85; filter:hue-rotate(80deg); }
+      93% { transform:translate(4px,-1px); opacity:0.85; }
+      95% { transform:translate(0); opacity:0; }
+    }
+    @keyframes glitch-b {
+      0%,88%,100% { transform:translate(0); opacity:0; }
+      92% { transform:translate(4px,2px); opacity:0.75; filter:hue-rotate(-80deg); }
+      94% { transform:translate(-4px,-2px); opacity:0.75; }
+      96% { transform:translate(0); opacity:0; }
+    }
+
+    .hero-tagline {
+      font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+      color: var(--text-muted);
+      margin-top: 0.9rem;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .hero-tagline .hl { color: var(--pink); font-style: normal; font-weight: 600; }
+
+    .badges {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+    .badge-cyan  { background:var(--cyan-dim);  color:var(--cyan);  border:1px solid rgba(0,245,255,0.3); }
+    .badge-pink  { background:var(--pink-dim);  color:var(--pink);  border:1px solid rgba(247,37,133,0.3); }
+    .badge-green { background:rgba(0,255,136,0.1); color:var(--green); border:1px solid rgba(0,255,136,0.25); }
+
+    /* ── Counter card ── */
+    .counter-card {
+      background: linear-gradient(135deg, rgba(247,37,133,0.1), rgba(124,58,237,0.1));
+      border: 1px solid rgba(247,37,133,0.25);
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .counter-card::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(247,37,133,0.06) 25%, transparent 50%);
+      animation: spin 8s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+    .counter-inner { position: relative; z-index: 1; }
+
+    .counter-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+    .counter-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.4rem, 9vw, 3.5rem);
+      font-weight: 700;
+      color: var(--pink);
+      text-shadow: 0 0 25px rgba(247,37,133,0.7);
+      cursor: pointer;
+      transition: transform 0.1s ease;
+      display: inline-block;
+    }
+    .counter-number.bump { animation: bump 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes bump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+
+    .counter-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── Generic card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(124,58,237,0.28);
+      box-shadow: 0 0 40px rgba(124,58,237,0.09);
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+      color: var(--cyan);
+    }
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── Form ── */
+    .form-group { display:flex; flex-direction:column; gap:0.75rem; }
+
+    .nickname-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .nickname-input::placeholder { color: var(--text-dim); }
+    .nickname-input:focus {
+      border-color: var(--purple-light);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.18), var(--glow-purple);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+      border: none;
+      border-radius: 12px;
+      padding: 1.05rem 1.5rem;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .submit-btn:hover::after { opacity: 1; }
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(247,37,133,0.45);
+    }
+    .submit-btn:active { transform: translateY(-1px); }
+    .submit-btn.shake { animation: shake 0.55s ease; }
+    @keyframes shake {
+      0%,100% { transform:translateX(0) rotate(0); }
+      15%     { transform:translateX(-9px) rotate(-1.5deg); }
+      30%     { transform:translateX(9px)  rotate(1.5deg); }
+      45%     { transform:translateX(-6px); }
+      60%     { transform:translateX(6px); }
+      75%     { transform:translateX(-3px); }
+      90%     { transform:translateX(3px); }
+    }
+
+    /* ── Result message ── */
+    .result-box {
+      display: none;
+      margin-top: 1.1rem;
+      padding: 1.4rem 1.25rem;
+      background: linear-gradient(135deg, rgba(0,245,255,0.07), rgba(124,58,237,0.07));
+      border: 1px solid rgba(0,245,255,0.22);
+      border-radius: 14px;
+      text-align: center;
+    }
+    .result-box.visible {
+      display: block;
+      animation: slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateY(-12px) scale(0.96); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+    .result-emoji { font-size: 2.75rem; display: block; margin-bottom: 0.55rem; }
+    .result-text  { font-size: 1.08rem; font-weight: 600; color: var(--cyan); line-height: 1.55; }
+    .result-nick  { color: var(--yellow); font-family: 'JetBrains Mono', monospace; font-size: 0.95em; }
+    .result-sub   { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.6rem; }
+
+    /* ── Prize card ── */
+    .prize-card {
+      background: linear-gradient(135deg, rgba(0,255,136,0.05), rgba(0,245,255,0.05));
+      border: 1px solid rgba(0,255,136,0.18);
+      text-align: center;
+    }
+    .prize-card:hover { border-color: rgba(0,255,136,0.35); box-shadow: 0 0 40px rgba(0,255,136,0.07); }
+    .prize-icon  { font-size: 3.2rem; display:block; margin-bottom:0.5rem; }
+    .prize-title { font-family:'Bebas Neue',cursive; font-size:1.6rem; color:var(--green); letter-spacing:1px; margin-bottom:0.6rem; }
+    .prize-text  { font-size:0.9rem; color:var(--text-muted); line-height:1.7; }
+    .prize-text strong { color:var(--green); }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .section-title { font-family:'Bebas Neue',cursive; font-size:1.55rem; letter-spacing:1px; color:var(--text); }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--pink);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulsedot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulsedot {
+      0%   { box-shadow: 0 0 0 0 rgba(247,37,133,0.7); }
+      70%  { box-shadow: 0 0 0 8px rgba(247,37,133,0); }
+      100% { box-shadow: 0 0 0 0 rgba(247,37,133,0); }
+    }
+
+    /* ── Criers list ── */
+    .criers-list { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
+
+    .crier-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .crier-item:hover { border-color: rgba(124,58,237,0.3); transform: translateX(5px); }
+    .crier-item.new-entry { animation: newEntry 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes newEntry {
+      from { opacity:0; transform:translateX(-20px) scale(0.95); }
+      to   { opacity:1; transform:translateX(0) scale(1); }
+    }
+
+    .crier-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .crier-info    { flex:1; min-width:0; }
+    .crier-name    { font-weight:600; font-size:0.88rem; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .crier-reason  { font-size:0.76rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:1px; }
+    .crier-time    { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); flex-shrink:0; }
+
+    /* ── Tips grid ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    @media (max-width: 480px) { .tips-grid { grid-template-columns: 1fr; } }
+
+    .tip-item {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .tip-item:hover {
+      border-color: rgba(124,58,237,0.4);
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(124,58,237,0.12);
+    }
+    .tip-emoji { font-size:1.8rem; display:block; margin-bottom:0.4rem; }
+    .tip-text  { font-size:0.8rem; color:var(--text-muted); line-height:1.45; }
+
+    .cta-phrase {
+      text-align: center;
+      margin-top: 1.4rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .cta-phrase p {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      letter-spacing: 1.5px;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 0 0;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 2.1;
+    }
+    .footer a { color: var(--purple-light); text-decoration: none; }
+    .footer a:hover { color: var(--cyan); }
+    .hint { font-size: 0.68rem; opacity: 0.45; margin-top: 0.25rem; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #10101f;
+      border: 1px solid rgba(0,245,255,0.3);
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--cyan);
+      z-index: 500;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap;
+      max-width: 90vw;
+      text-align: center;
+      pointer-events: none;
+    }
+    .toast.visible { transform: translateX(-50%) translateY(0); }
+
+    /* ── Easter egg modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .modal-overlay.active { display: flex; }
+
+    .modal-box {
+      background: #0d0d1e;
+      border: 1px solid rgba(0,245,255,0.4);
+      border-radius: 22px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 80px rgba(0,245,255,0.18), 0 0 0 1px rgba(124,58,237,0.2);
+      animation: modalPop 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalPop { from{opacity:0;transform:scale(0.75)} to{opacity:1;transform:scale(1)} }
+
+    .modal-title   { font-family:'Bebas Neue',cursive; font-size:2.2rem; color:var(--cyan); letter-spacing:2px; margin:0.5rem 0; }
+    .modal-text    { font-size:1rem; color:var(--text-muted); margin:0.6rem 0; line-height:1.55; }
+    .modal-code    { font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--purple-light); margin:0.5rem 0; }
+    .modal-sub     { font-size:0.78rem; color:var(--text-dim); margin-top:0.4rem; }
+
+    .modal-close {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 1.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      margin-top: 1.5rem;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── Entrance animation ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.55s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     AUDIO — audio/balasound.ogg
+     Para cambiar el audio reemplaza el archivo
+     o edita el src del <source> de abajo.
+     ══════════════════════════════════ -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="audio/balasound.ogg" type="audio/ogg">
+</audio>
+
+<!-- Audio toggle (top-right) -->
+<button class="audio-btn" id="audio-toggle" title="Música triste">🔇</button>
+
+<!-- Toast notification -->
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<!-- Easter egg modal -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div style="font-size:3.5rem">🕹️</div>
+    <div class="modal-title">KONAMI CODE</div>
+    <div class="modal-text">Encontraste el easter egg...<br>pero igual te stompearon 💀</div>
+    <div class="modal-code">↑ ↑ ↓ ↓ ← → ← → B A</div>
+    <div class="modal-sub">El Konami Code no soluciona un skill issue, lamentablemente. 😂</div>
+    <button class="modal-close" id="modal-close">Cerrar y seguir llorando</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MAIN CONTENT
+     ══════════════════════════════════ -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero fade-up" style="animation-delay:0.05s">
+    <div class="skull-icon">💀</div>
+    <h1 class="site-title">llorar.com</h1>
+    <p class="hero-tagline">
+      Si llegaste hasta aquí… <span class="hl">te stompearon</span> 😢<br>
+      Bienvenido al único lugar honesto del internet gamer.
+    </p>
+    <div class="badges">
+      <span class="badge badge-cyan">⚡ EN VIVO</span>
+      <span class="badge badge-pink">🎮 PvP Zone</span>
+      <span class="badge badge-green">✅ Llorar Seguro</span>
+    </div>
+  </section>
+
+  <!-- COUNTER -->
+  <div class="counter-card fade-up" style="animation-delay:0.15s">
+    <div class="counter-inner">
+      <div class="counter-label">😭 Personas que se picaron hoy</div>
+      <div class="counter-number" id="counter" title="Haz click para... nada útil">1,337</div>
+      <div class="counter-sub">y contando · tú serás el siguiente 👀</div>
+    </div>
+  </div>
+
+  <!-- REGISTER FORM -->
+  <div class="card fade-up" style="animation-delay:0.25s">
+    <div class="card-title">🚨 Registra Tu Lloro</div>
+    <p class="card-desc">
+      Sabemos que duele. Sabemos que «el lag» no tuvo la culpa.
+      Pero igual escribe tu nombre para el <em>muro de la vergüenza</em>.
+    </p>
+    <div class="form-group">
+      <input
+        type="text"
+        id="nickname"
+        class="nickname-input"
+        placeholder="Tu nickname (ej: xXPro_Gamer420Xx)"
+        maxlength="30"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Tu nickname"
+      >
+      <button class="submit-btn" id="submit-btn">
+        😭 &nbsp;Sí, me stompearon
+      </button>
+    </div>
+    <div class="result-box" id="result-box" role="alert" aria-live="polite">
+      <span class="result-emoji" id="result-emoji">💀</span>
+      <div class="result-text"  id="result-text"></div>
+      <div class="result-sub"   id="result-sub"></div>
+    </div>
+  </div>
+
+  <!-- CONSOLATION PRIZE -->
+  <div class="card prize-card fade-up" style="animation-delay:0.35s">
+    <span class="prize-icon">🏆</span>
+    <div class="prize-title">Tu Premio de Consolación</div>
+    <div class="prize-text">
+      Acepta que te hicieron polvo 😂<br>
+      <strong>No fue el lag. No fue el equipo. Fuiste tú.</strong><br><br>
+      Pero oye, todos empezamos en algún lado...<br>
+      ...aunque algunos nunca mejoran. 🤷
+    </div>
+  </div>
+
+  <!-- ÚLTIMOS LLORONES -->
+  <div class="card fade-up" style="animation-delay:0.45s">
+    <div class="section-header">
+      <div class="live-dot" aria-hidden="true"></div>
+      <div class="section-title">Últimos Llorones</div>
+      <span class="badge badge-pink" style="margin-left:auto">LIVE</span>
+    </div>
+    <ul class="criers-list" id="criers-list" aria-label="Lista de últimos llorones"></ul>
+  </div>
+
+  <!-- CONSEJOS -->
+  <div class="card fade-up" style="animation-delay:0.55s">
+    <div class="card-title">💡 Consejos del Experto</div>
+    <div class="tips-grid">
+      <div class="tip-item">
+        <span class="tip-emoji">🎯</span>
+        <div class="tip-text">Practica en bots primero. Sí, en serio. No te da vergüenza. 😐</div>
+      </div>
+      <div class="tip-item">
+        <span class="tip-emoji">💤</span>
+        <div class="tip-text">Duerme más de 3 horas antes de rankear. El cansancio sí es tuyo.</div>
+      </div>
+      <div class="tip-item">
+        <span class="tip-emoji">😤</span>
+        <div class="tip-text">El tilting destruye tu aim. Tu siguiente derrota también fue tuya.</div>
+      </div>
+      <div class="tip-item">
+        <span class="tip-emoji">📺</span>
+        <div class="tip-text">Mira VODs de tus partidas. Va a doler. Haz clic de todas formas.</div>
+      </div>
+    </div>
+    <div class="cta-phrase">
+      <p>💪 &nbsp;DEJA DE LLORAR Y VUELVE A INTENTARLO&nbsp; 💪</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-up" style="animation-delay:0.65s">
+    <div>hecho con 💀 para los que perdieron en PvP</div>
+    <div>llorar.com &copy; 2025 — ningún gamer fue lastimado (solo su ego)</div>
+    <div class="hint">Psst: hay un easter egg escondido. ↑↑↓↓←→←→BA 🕹️</div>
+  </footer>
+
+</main>
+
+<script>
+  /* ════════════════════════════════════════
+     DATA
+  ════════════════════════════════════════ */
+
+  const MOCK_CRIERS = [
+    { name: 'xX_CryBaby_Xx',       reason: '"El lag me afectó justo en el clutch"',     time: 'hace 1 min',  emoji: '😭' },
+    { name: 'ProGamer2024_real',    reason: '"Mi equipo me abandonó completamente"',     time: 'hace 3 min',  emoji: '🤡' },
+    { name: 'NoobDestroyer69',      reason: '"Todo el mundo hacía trampa, lo juro"',     time: 'hace 6 min',  emoji: '💀' },
+    { name: 'GodofPvP_notkidding', reason: '"No fue mi culpa, fue el servidor"',        time: 'hace 9 min',  emoji: '😤' },
+    { name: 'MLGSniper420',         reason: '"Mi mouse falló exactamente ahí"',          time: 'hace 13 min', emoji: '🎯' },
+    { name: 'ToxicNoMore_lol',      reason: '"El matchmaking está totalmente roto"',     time: 'hace 18 min', emoji: '🔥' },
+    { name: 'BestPlayerEU_trust',   reason: '"No hice warm-up, normalmente gano"',      time: 'hace 22 min', emoji: '🙃' },
+    { name: 'sweatytryhardXD',      reason: '"Me nervié en el 1v1 decisivo"',            time: 'hace 27 min', emoji: '😰' },
+  ];
+
+  const ROAST_MESSAGES = [
+    { emoji: '💀', text: 'GG fácil para el otro equipo.',             sub: 'Tu rival durmió bien anoche. Tú, obviamente, no.' },
+    { emoji: '🤖', text: 'Te mandaron al respawn tan rápido que el servidor pensó que eras un bot.', sub: 'Técnicamente, tampoco estaba equivocado.' },
+    { emoji: '📵', text: 'Tus habilidades llamaron... dijeron que no están disponibles.',             sub: 'Deja un mensaje después del beep. Beeeeep.' },
+    { emoji: '🏆', text: 'Felicidades, desbloqueaste el logro: "Stompeado en 4K".',                  sub: 'Ultra HD, crystal clear. Sin excusas posibles.' },
+    { emoji: '🎯', text: 'El otro jugador mandó sus saludos.',                                        sub: 'También preguntó si quieres practicar con bots juntos.' },
+    { emoji: '👀', text: 'El matchmaking no tuvo la culpa. Tú eres el skill issue.',                 sub: 'Lo siento. Alguien tenía que decírtelo hoy.' },
+    { emoji: '📊', text: 'Tus stats lloraron antes que tú.',                                         sub: 'Y ya avisaron que renuncian si sigues así.' },
+    { emoji: '🔥', text: 'Se acabó la partida, pero tu humillación es permanente.',                  sub: 'Quedó registrada en los servidores. Para siempre.' },
+    { emoji: '💅', text: 'Incluso los NPCs juegan mejor que tú.',                                    sub: 'Un bot nivel 1 te miraba con lástima. Con lástima.' },
+    { emoji: '🔍', text: 'Tu equipo ya está buscando otro main.',                                    sub: 'Pusieron el anuncio mientras aún caías al suelo.' },
+    { emoji: '😬', text: 'Pro tip: el lag no fue la razón.',                                         sub: 'Tenías 11ms de ping y aún así fallaste todo. Todo.' },
+    { emoji: '🌈', text: '¿Querías ganar? Qué gracioso.',                                            sub: 'La confianza, eso sí, la tienes en puntos máximos.' },
+    { emoji: '🪦', text: 'Tu personaje tuvo más tiempo de pantalla muerto que vivo.',                sub: 'Nueva estrategia meta: spectator mode involuntario.' },
+    { emoji: '🐔', text: 'El rival activó el modo "piloto automático" y ganó igual.',               sub: 'Eso dice mucho. No de él.' },
+    { emoji: '🎪', text: 'Tu gameplay fue tan entretenido que el rival agradeció haberte matcheado.', sub: 'Para él fue literalmente un show gratuito.' },
+  ];
+
+  const GG_EASTER = [
+    { emoji: '🤝', text: 'Al menos sabes decir GG. Es el primer paso.',     sub: 'La aceptación es el inicio de la mejora. Bienvenido.' },
+    { emoji: '✨', text: 'GG = Good Game. Para el otro equipo, claro.',       sub: 'Para ti fue... una experiencia de crecimiento personal.' },
+  ];
+
+  const NEW_CRIER_REASONS = [
+    '"No sé qué pasó exactamente"',
+    '"Definitivamente fue el lag, 100%"',
+    '"Primera vez que pasa... hoy"',
+    '"El equipo me falló en el peor momento"',
+    '"Necesitaba más práctica, lo sé"',
+    '"Skill issue confirmado, sí 💀"',
+    '"Mi GPU tuvo que ser hoy"',
+    '"El mapa no es mi favorito, obvio"',
+  ];
+
+  const CRIER_EMOJIS = ['😭','😤','🤡','💀','😰','🙃','🔥','🎯','😵','🫠'];
+
+  /* ════════════════════════════════════════
+     COUNTER
+  ════════════════════════════════════════ */
+
+  let count = 1337;
+  const counterEl = document.getElementById('counter');
+
+  function fmtCount(n) { return n.toLocaleString('es-ES'); }
+
+  function bumpCounter(by = 1) {
+    count += by;
+    counterEl.textContent = fmtCount(count);
+    counterEl.classList.remove('bump');
+    void counterEl.offsetWidth; /* reflow */
+    counterEl.classList.add('bump');
+    setTimeout(() => counterEl.classList.remove('bump'), 350);
+  }
+
+  /* Simulate live users */
+  (function liveTick() {
+    const delay = 5000 + Math.random() * 9000;
+    setTimeout(() => {
+      const r = Math.random();
+      bumpCounter(r < 0.6 ? 1 : r < 0.87 ? 2 : 3 + Math.floor(Math.random() * 4));
+      liveTick();
+    }, delay);
+  })();
+
+  /* Counter click easter egg */
+  let counterClicks = 0;
+  counterEl.addEventListener('click', () => {
+    counterClicks++;
+    bumpCounter(1 + Math.floor(Math.random() * 8));
+    if      (counterClicks === 5)  showToast('🤡 El contador lo controlas tú... ¿y aún así perdiste?');
+    else if (counterClicks === 10) showToast('💀 Oye, ya para. Eso no te hace mejor jugador.');
+    else if (counterClicks === 20) showToast('👀 Sigues aquí. ¿Necesitas hablar de algo?');
+    else if (counterClicks === 50) { showToast('🏆 Logro desbloqueado: "Mucho tiempo libre"'); triggerConfetti(); }
+  });
+
+  /* ════════════════════════════════════════
+     CRIERS LIST
+  ════════════════════════════════════════ */
+
+  let criersData = [...MOCK_CRIERS];
+
+  function renderCriers() {
+    const ul = document.getElementById('criers-list');
+    ul.innerHTML = '';
+    criersData.forEach((c, i) => {
+      const li = document.createElement('li');
+      li.className = 'crier-item' + (i === 0 && c._new ? ' new-entry' : '');
+      li.innerHTML = `
+        <div class="crier-avatar" aria-hidden="true">${c.emoji}</div>
+        <div class="crier-info">
+          <div class="crier-name">${esc(c.name)}</div>
+          <div class="crier-reason">${c.reason}</div>
+        </div>
+        <div class="crier-time">${c.time}</div>
+      `;
+      ul.appendChild(li);
+    });
+  }
+
+  renderCriers();
+
+  function addCrier(name) {
+    const entry = {
+      name:   name || 'Anónimo_Llorón',
+      reason: NEW_CRIER_REASONS[Math.floor(Math.random() * NEW_CRIER_REASONS.length)],
+      time:   'ahora mismo',
+      emoji:  CRIER_EMOJIS[Math.floor(Math.random() * CRIER_EMOJIS.length)],
+      _new:   true,
+    };
+    criersData = [entry, ...criersData.slice(0, 7)];
+    renderCriers();
+  }
+
+  /* ════════════════════════════════════════
+     FORM & ROAST
+  ════════════════════════════════════════ */
+
+  const submitBtn  = document.getElementById('submit-btn');
+  const nickInput  = document.getElementById('nickname');
+  const resultBox  = document.getElementById('result-box');
+  const resultEmoj = document.getElementById('result-emoji');
+  const resultTxt  = document.getElementById('result-text');
+  const resultSub  = document.getElementById('result-sub');
+  let lastIdx = -1;
+
+  function getRoast(nick) {
+    const n = nick.toLowerCase().trim();
+    if (n === 'gg' || n === 'gg ez' || n === 'gg fácil') {
+      return { ...GG_EASTER[Math.floor(Math.random() * GG_EASTER.length)], special: true };
+    }
+    let idx;
+    do { idx = Math.floor(Math.random() * ROAST_MESSAGES.length); }
+    while (idx === lastIdx && ROAST_MESSAGES.length > 1);
+    lastIdx = idx;
+    return ROAST_MESSAGES[idx];
+  }
+
+  function triggerConfetti() {
+    const colors = ['#00f5ff','#7c3aed','#f72585','#ffd60a','#00ff88','#a78bfa'];
+    confetti({ particleCount: 90, angle: 90, spread: 110, origin: { y: 0.5 }, colors, gravity: 1.4, scalar: 0.9 });
+    setTimeout(() => {
+      confetti({ particleCount: 35, angle:  60, spread: 55, origin: { x: 0,   y: 0.65 }, colors });
+      confetti({ particleCount: 35, angle: 120, spread: 55, origin: { x: 1,   y: 0.65 }, colors });
+    }, 220);
+  }
+
+  function handleSubmit() {
+    const nick    = nickInput.value.trim();
+    const display = nick || 'Anónimo_Llorón';
+    const roast   = getRoast(nick);
+
+    /* shake button */
+    submitBtn.classList.remove('shake');
+    void submitBtn.offsetWidth;
+    submitBtn.classList.add('shake');
+    setTimeout(() => submitBtn.classList.remove('shake'), 600);
+
+    /* populate result */
+    resultEmoj.textContent = roast.emoji;
+    resultTxt.innerHTML = nick
+      ? `<span class="result-nick">${esc(display)}</span>: ${roast.text}`
+      : roast.text;
+    resultSub.textContent = roast.sub || 'Inténtalo de nuevo. Quizás esta vez...';
+
+    /* show result */
+    resultBox.style.display = 'none';
+    resultBox.classList.remove('visible');
+    void resultBox.offsetWidth;
+    resultBox.style.display = 'block';
+    resultBox.classList.add('visible');
+
+    /* side effects */
+    addCrier(display);
+    bumpCounter(1);
+    triggerConfetti();
+
+    if (roast.special) showToast('🎮 Easter egg activado — GG fácil 😂');
+
+    setTimeout(() => resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+
+  submitBtn.addEventListener('click', handleSubmit);
+  nickInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
+
+  /* Title click easter egg */
+  let titleClicks = 0;
+  document.querySelector('.site-title').addEventListener('click', () => {
+    titleClicks++;
+    if      (titleClicks === 3) showToast('😭 Tres veces en llorar.com. Confirmado: skill issue grave.');
+    else if (titleClicks === 7) showToast('💀 Sigues aquí. ¿Necesitas un abrazo virtual?');
+    else if (titleClicks === 11) { showToast('✨ Logro: "Leal a llorar.com". Preocupante.'); triggerConfetti(); }
+  });
+
+  /* ════════════════════════════════════════
+     TOAST
+  ════════════════════════════════════════ */
+
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+
+  function showToast(msg, duration = 3500) {
+    clearTimeout(toastTimer);
+    toastEl.textContent = msg;
+    toastEl.classList.add('visible');
+    toastTimer = setTimeout(() => toastEl.classList.remove('visible'), duration);
+  }
+
+  /* ════════════════════════════════════════
+     AUDIO
+  ════════════════════════════════════════ */
+
+  const audio     = document.getElementById('bg-audio');
+  const audioBtn  = document.getElementById('audio-toggle');
+  let isPlaying   = false;
+  let audioReady  = false;
+
+  function hasAudioSrc() {
+    return !!(audio.src || audio.querySelector('source')?.src);
+  }
+
+  function setAudioBtn() {
+    audioBtn.textContent = isPlaying ? '🔊' : '🔇';
+    audioBtn.title = isPlaying ? 'Silenciar música triste' : 'Activar música triste';
+  }
+
+  async function tryPlay() {
+    if (!hasAudioSrc()) return;
+    try {
+      audio.volume = 0.22;
+      await audio.play();
+      isPlaying  = true;
+      audioReady = true;
+      setAudioBtn();
+    } catch (_) { /* blocked — will try on first interaction */ }
+  }
+
+  /* Try autoplay immediately */
+  tryPlay();
+
+  /* Unlock on first user gesture */
+  function onFirstGesture() {
+    if (!audioReady) tryPlay();
+  }
+  document.addEventListener('click',      onFirstGesture, { once: true });
+  document.addEventListener('keydown',    onFirstGesture, { once: true });
+  document.addEventListener('touchstart', onFirstGesture, { once: true });
+
+  audioBtn.addEventListener('click', async e => {
+    e.stopPropagation();
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+    } else {
+      if (!hasAudioSrc()) { showToast('🎵 Añade audio/theme.mp3 para activar la música'); return; }
+      try {
+        await audio.play();
+        isPlaying  = true;
+        audioReady = true;
+      } catch (_) {
+        showToast('🔇 No se pudo reproducir el audio.');
+      }
+    }
+    setAudioBtn();
+  });
+
+  /* ════════════════════════════════════════
+     KONAMI CODE EASTER EGG
+  ════════════════════════════════════════ */
+
+  const KONAMI   = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let konamiIdx  = 0;
+
+  document.addEventListener('keydown', e => {
+    konamiIdx = e.key === KONAMI[konamiIdx] ? konamiIdx + 1 : (e.key === KONAMI[0] ? 1 : 0);
+    if (konamiIdx === KONAMI.length) {
+      konamiIdx = 0;
+      openModal();
+    }
+  });
+
+  const modalEl   = document.getElementById('modal');
+  const modalClose = document.getElementById('modal-close');
+
+  function openModal() {
+    modalEl.classList.add('active');
+    triggerConfetti();
+    showToast('🕹️ KONAMI CODE — Igual te stompearon 💀');
+  }
+  modalClose.addEventListener('click', () => modalEl.classList.remove('active'));
+  modalEl.addEventListener('click', e => { if (e.target === modalEl) modalEl.classList.remove('active'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modalEl.classList.remove('active'); });
+
+  /* ════════════════════════════════════════
+     SCROLL REVEAL (lightweight IntersectionObserver)
+  ════════════════════════════════════════ */
+
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.style.animationPlayState = 'running';
+        revealObs.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-up').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    revealObs.observe(el);
+  });
+
+  /* ════════════════════════════════════════
+     HELPER
+  ════════════════════════════════════════ */
+
+  function esc(str) {
+    const d = document.createElement('div');
+    d.appendChild(document.createTextNode(str));
+    return d.innerHTML;
+  }
+</script>
+</body>
+</html>
