@@ -501,6 +501,73 @@
     .footer a:hover { color: var(--cyan); }
     .hint { font-size: 0.68rem; opacity: 0.45; margin-top: 0.25rem; }
 
+    /* ── Entry overlay ── */
+    .entry-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #060610 0%, #0d0d1e 50%, #060610 100%);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .entry-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .entry-content {
+      text-align: center;
+      max-width: 420px;
+      animation: modalPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .entry-skull {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    .entry-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+      background: linear-gradient(140deg, var(--cyan) 0%, var(--purple-light) 45%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .entry-text {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .entry-btn {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+      border: none;
+      border-radius: 14px;
+      padding: 1.1rem 2rem;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      display: inline-block;
+    }
+    .entry-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(247,37,133,0.5);
+    }
+    .entry-hint {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 1rem;
+      opacity: 0.6;
+    }
+
     /* ── Toast ── */
     .toast {
       position: fixed;
@@ -592,6 +659,19 @@
 
 <!-- Audio toggle (top-right) -->
 <button class="audio-btn" id="audio-toggle" title="Música triste">🔇</button>
+
+<!-- Entry overlay (forces user click to enable audio) -->
+<div class="entry-overlay" id="entry-overlay" role="dialog" aria-modal="true">
+  <div class="entry-content">
+    <div class="entry-skull">💀</div>
+    <div class="entry-title">llorar.com</div>
+    <div class="entry-text">Si llegaste aquí… te stompearon 😢</div>
+    <button class="entry-btn" id="entry-btn">
+      🎮 &nbsp;Entrar y aceptar mi derrota
+    </button>
+    <div class="entry-hint">El audio se activará automáticamente</div>
+  </div>
+</div>
 
 <!-- Toast notification -->
 <div class="toast" id="toast" aria-live="polite"></div>
@@ -950,10 +1030,12 @@
      AUDIO
   ════════════════════════════════════════ */
 
-  const audio     = document.getElementById('bg-audio');
-  const audioBtn  = document.getElementById('audio-toggle');
-  let isPlaying   = false;
-  let audioReady  = false;
+  const audio        = document.getElementById('bg-audio');
+  const audioBtn     = document.getElementById('audio-toggle');
+  const entryOverlay = document.getElementById('entry-overlay');
+  const entryBtn     = document.getElementById('entry-btn');
+  let isPlaying      = false;
+  let audioReady     = false;
 
   function hasAudioSrc() {
     return !!(audio.src || audio.querySelector('source')?.src);
@@ -964,42 +1046,37 @@
     audioBtn.title = isPlaying ? 'Silenciar música triste' : 'Activar música triste';
   }
 
-  async function tryPlay() {
-    if (!hasAudioSrc()) return;
+  async function playAudio() {
+    if (!hasAudioSrc()) return false;
     try {
       audio.volume = 0.22;
       await audio.play();
       isPlaying  = true;
       audioReady = true;
       setAudioBtn();
-    } catch (_) { /* blocked — will try on first interaction */ }
+      return true;
+    } catch (_) { return false; }
   }
 
-  /* Try autoplay immediately */
-  tryPlay();
+  /* Entry button click — activates audio and hides overlay */
+  entryBtn.addEventListener('click', async () => {
+    const success = await playAudio();
+    if (!success && hasAudioSrc()) {
+      showToast('🔇 No se pudo reproducir el audio. Revisa el navegador.');
+    }
+    entryOverlay.classList.add('hidden');
+    setTimeout(() => entryOverlay.style.display = 'none', 500);
+  });
 
-  /* Unlock on first user gesture */
-  function onFirstGesture() {
-    if (!audioReady) tryPlay();
-  }
-  document.addEventListener('click',      onFirstGesture, { once: true });
-  document.addEventListener('keydown',    onFirstGesture, { once: true });
-  document.addEventListener('touchstart', onFirstGesture, { once: true });
-
+  /* Audio toggle button */
   audioBtn.addEventListener('click', async e => {
     e.stopPropagation();
     if (isPlaying) {
       audio.pause();
       isPlaying = false;
     } else {
-      if (!hasAudioSrc()) { showToast('🎵 Añade audio/theme.mp3 para activar la música'); return; }
-      try {
-        await audio.play();
-        isPlaying  = true;
-        audioReady = true;
-      } catch (_) {
-        showToast('🔇 No se pudo reproducir el audio.');
-      }
+      if (!hasAudioSrc()) { showToast('🎵 Añade audio/balasound.ogg para activar la música'); return; }
+      await playAudio();
     }
     setAudioBtn();
   });
